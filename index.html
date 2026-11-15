@@ -572,7 +572,22 @@
             100% { box-shadow: 0 0 10px rgba(255, 0, 85, 0.6), 0 0 20px rgba(0, 204, 255, 0.6); }
         }
         /* ========================================= */
+/* ✨ تأثير اللمعان المتحرك لاسم التطبيق */
+.auth-logo h1 {
+    background: linear-gradient(90deg, #F5C518, #00D084, #3b82f6, #F5C518);
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent !important;
+    animation: shimmerText 3s linear infinite;
+    display: inline-block;
+}
 
+@keyframes shimmerText {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
     </style>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#F5C518">
@@ -1237,20 +1252,12 @@ async function initFirebase() {
         
         window.firebaseDB = db; window.firebaseFS = fsModule;
         onAuthStateChanged(auth, async (user) => {
-            if (user) { await loadUserData(user.uid); setTimeout(_startPolling, 2000); }
-            else { 
-                setTimeout(() => {
-                    const savedUser = JSON.parse(localStorage.getItem('tradelix_user') || '{}');
-                    if (!savedUser.uid) {
-                        _pollStarted = false; 
-                        _lastUID = null; 
-                        currentUserData = null; 
-                        _clearAllUserData();
-                        showScreen('loginScreen');
-                    }
-                }, 2000);
-            }
-        });
+    if (user) { 
+        await loadUserData(user.uid); 
+        setTimeout(_startPolling, 2000); 
+    }
+    // ✅ تم إيقاف كود الطرد المفاجئ لمنع تسجيل الخروج
+});
     } catch(e) { console.error('Firebase error:', e); }
 }
 

@@ -83,23 +83,36 @@
         });
 
         let isAuthCheckDone = false;
-        
-        onAuthStateChanged(window.firebaseAuth, (user) => {
-            if (user) {
-                isAuthCheckDone = true;
-                currentUserUID = user.uid;
-                loadWalletData();
-                setupNotifications();
-            } else {
-                if (!isAuthCheckDone) {
-                    setTimeout(() => {
-                        if (!currentUserUID) {
-                            window.location.href = 'index.html';
-                        }
-                    }, 1500);
+
+// ✅ 1. قراءة بيانات المستخدم من الذاكرة المحلية (لمنع الطرد الفوري)
+const savedUser = JSON.parse(localStorage.getItem('tradelix_user') || '{}');
+if (savedUser && savedUser.uid) {
+    currentUserUID = savedUser.uid;
+    isAuthCheckDone = true;
+    loadWalletData();
+    setupNotifications();
+}
+
+// ✅ 2. التحقق من Firebase في الخلفية (لتحديث البيانات)
+onAuthStateChanged(window.firebaseAuth, (user) => {
+    if (user) {
+        if (!currentUserUID) {
+            currentUserUID = user.uid;
+            loadWalletData();
+            setupNotifications();
+        }
+        isAuthCheckDone = true;
+    } else {
+        // إذا لم يجد المستخدم في Firebase ولا في الذاكرة، اطرده
+        if (!isAuthCheckDone && !currentUserUID) {
+            setTimeout(() => {
+                if (!currentUserUID && !savedUser.uid) {
+                    window.location.href = 'index.html';
                 }
-            }
-        });
+            }, 3000); // إعطاء وقت أطول 3 ثواني قبل الطرد
+        }
+    }
+});
 
         function loadWalletData() {
             if (!currentUserUID) return;

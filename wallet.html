@@ -83,7 +83,8 @@
         });
 
         let isAuthCheckDone = false;
-// ✅ 1. استخدم من الذاكرة المحلية (لمنع الطرد الفوري)
+
+// ✅ قراءة البيانات من الذاكرة المحلية فقط (بدون Firebase)
 const savedUser = JSON.parse(localStorage.getItem('tradelix_user') || '{}');
 if (savedUser && savedUser.uid) {
     currentUserUID = savedUser.uid;
@@ -91,20 +92,6 @@ if (savedUser && savedUser.uid) {
     loadWalletData();
     setupNotifications();
 }
-
-// ✅ 2. التحقق من Firebase (لتحديث البيانات)
-onAuthStateChanged(window.firebaseAuth, (user) => {
-    if (user) {
-        if (!currentUserUID) {
-            currentUserUID = user.uid;
-            loadWalletData();
-            setupNotifications();
-        }
-        isAuthCheckDone = true;
-    } else {
-        // ✅ تم إيقاف كود الطرد المفاجئ (لن يسجل الخروج)
-    }
-});
 
 
         function loadWalletData() {

@@ -33,8 +33,8 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
         <div style="flex: 1; overflow-y: auto;">
             
-            <!-- 1. اشتراك العملات الرقمية -->
-            <a href="index.html" onclick="toggleSideMenu()" style="display: flex; align-items: center; padding: 15px 20px; color: #fff; text-decoration: none; border-bottom: 1px solid #1a1a1a;">
+            <!-- 1. اشتراك العملات الرقمية (يغلق القائمة ويمرر لقسم الاشتراكات) -->
+            <a href="javascript:void(0)" onclick="toggleSideMenu(); if(document.getElementById('plansSection')) document.getElementById('plansSection').scrollIntoView({behavior: 'smooth'});" style="display: flex; align-items: center; padding: 15px 20px; color: #fff; text-decoration: none; border-bottom: 1px solid #1a1a1a;">
                 <i class="fa-brands fa-bitcoin" style="color: #F5C518; width: 30px;"></i> Crypto Subscription
             </a>
 

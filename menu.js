@@ -48,17 +48,22 @@ document.addEventListener("DOMContentLoaded", function() {
                 <i class="fa-solid fa-chart-line" style="color: #F5C518; width: 30px;"></i> Forex Subscription
             </a>
 
-            <!-- 4. المحفظة (يوجه مباشرة لصفحة المحفظة) -->
+            <!-- 4. الأسواق (تمت الإضافة) -->
+            <a href="javascript:void(0)" onclick="toggleSideMenu(); if(typeof openAllMarkets === 'function') { openAllMarkets(); } else { const btn = document.querySelector('.markets-pro-btn'); if(btn) btn.click(); }" style="display: flex; align-items: center; padding: 15px 20px; color: #fff; text-decoration: none; border-bottom: 1px solid #1a1a1a;">
+                <i class="fa-solid fa-chart-pie" style="color: #F5C518; width: 30px;"></i> All Markets
+            </a>
+
+            <!-- 5. المحفظة (يوجه مباشرة لصفحة المحفظة) -->
             <a href="wallet.html" onclick="toggleSideMenu()" style="display: flex; align-items: center; padding: 15px 20px; color: #fff; text-decoration: none; border-bottom: 1px solid #1a1a1a;">
                 <i class="fa-solid fa-wallet" style="color: #F5C518; width: 30px;"></i> Wallet
             </a>
 
-            <!-- 5. الإحالة (بروفايل) -->
+            <!-- 6. الإحالة (بروفايل) -->
             <a href="#" onclick="if(typeof showScreen === 'function') { showScreen('profileScreen'); toggleSideMenu(); } else { alert('Profile not found'); }" style="display: flex; align-items: center; padding: 15px 20px; color: #fff; text-decoration: none; border-bottom: 1px solid #1a1a1a;">
                 <i class="fa-solid fa-users" style="color: #F5C518; width: 30px;"></i> Referral
             </a>
 
-            <!-- 6. الكورسات (أكاديمية) -->
+            <!-- 7. الكورسات (أكاديمية) -->
             <a href="#" onclick="if(typeof showScreen === 'function') { showScreen('academyScreen'); toggleSideMenu(); } else { alert('Academy not found'); }" style="display: flex; align-items: center; padding: 15px 20px; color: #fff; text-decoration: none; border-bottom: 1px solid #1a1a1a;">
                 <i class="fa-solid fa-graduation-cap" style="color: #F5C518; width: 30px;"></i> Courses
             </a>

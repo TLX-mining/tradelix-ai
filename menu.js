@@ -12,6 +12,26 @@ function toggleSideMenu() {
     }
 }
 
+// دالة مخصصة لفتح التوصيات من القائمة الجانبية
+function openRecommendations() {
+    // 1. إغلاق القائمة الجانبية
+    toggleSideMenu();
+    
+    // 2. فتح شاشة التوصيات
+    if (typeof showScreen === 'function') {
+        showScreen('recommendationsScreen');
+    } else {
+        const btn = document.querySelector('.join-now-btn');
+        if(btn) btn.click();
+    }
+    
+    // 3. إجبار الصفحة على العودة للأعلى بعد فتح الشاشة
+    // (عند الإغلاق، ستكون الصفحة في الأعلى بالفعل)
+    setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+    }, 50);
+}
+
 // إنشاء القائمة تلقائياً عند تحميل الصفحة
 document.addEventListener("DOMContentLoaded", function() {
     // 1. إنشاء الخلفية المعتمة
@@ -48,22 +68,27 @@ document.addEventListener("DOMContentLoaded", function() {
                 <i class="fa-solid fa-chart-line" style="color: #F5C518; width: 30px;"></i> Forex Subscription
             </a>
 
-            <!-- 4. الأسواق (تمت الإضافة) -->
+            <!-- 4. الأسواق -->
             <a href="javascript:void(0)" onclick="toggleSideMenu(); if(typeof openAllMarkets === 'function') { openAllMarkets(); } else { const btn = document.querySelector('.markets-pro-btn'); if(btn) btn.click(); }" style="display: flex; align-items: center; padding: 15px 20px; color: #fff; text-decoration: none; border-bottom: 1px solid #1a1a1a;">
                 <i class="fa-solid fa-chart-pie" style="color: #F5C518; width: 30px;"></i> All Markets
             </a>
 
-            <!-- 5. المحفظة (يوجه مباشرة لصفحة المحفظة) -->
+            <!-- 5. التوصيات (Recommendations) - تمت الإضافة -->
+            <a href="javascript:void(0)" onclick="openRecommendations();" style="display: flex; align-items: center; padding: 15px 20px; color: #fff; text-decoration: none; border-bottom: 1px solid #1a1a1a;">
+                <i class="fa-solid fa-star" style="color: #F5C518; width: 30px;"></i> Recommendations
+            </a>
+
+            <!-- 6. المحفظة -->
             <a href="wallet.html" onclick="toggleSideMenu()" style="display: flex; align-items: center; padding: 15px 20px; color: #fff; text-decoration: none; border-bottom: 1px solid #1a1a1a;">
                 <i class="fa-solid fa-wallet" style="color: #F5C518; width: 30px;"></i> Wallet
             </a>
 
-            <!-- 6. الإحالة (بروفايل) -->
+            <!-- 7. الإحالة (بروفايل) -->
             <a href="#" onclick="if(typeof showScreen === 'function') { showScreen('profileScreen'); toggleSideMenu(); } else { alert('Profile not found'); }" style="display: flex; align-items: center; padding: 15px 20px; color: #fff; text-decoration: none; border-bottom: 1px solid #1a1a1a;">
                 <i class="fa-solid fa-users" style="color: #F5C518; width: 30px;"></i> Referral
             </a>
 
-            <!-- 7. الكورسات (أكاديمية) -->
+            <!-- 8. الكورسات (أكاديمية) -->
             <a href="#" onclick="if(typeof showScreen === 'function') { showScreen('academyScreen'); toggleSideMenu(); } else { alert('Academy not found'); }" style="display: flex; align-items: center; padding: 15px 20px; color: #fff; text-decoration: none; border-bottom: 1px solid #1a1a1a;">
                 <i class="fa-solid fa-graduation-cap" style="color: #F5C518; width: 30px;"></i> Courses
             </a>

@@ -1154,5 +1154,16 @@
         setInterval(fetchPrice, 3000); 
         loadChart('1'); 
     </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        if (window.location.hash === '#forex') {
+            if (typeof openForexScreen === 'function') {
+                setTimeout(() => {
+                    openForexScreen();
+                }, 500);
+            }
+        }
+    });
+</script>
 </body>
 </html>

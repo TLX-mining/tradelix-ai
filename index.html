@@ -1578,10 +1578,16 @@ function copyWallet() {
 }
 
 async function submitDeposit() {
-    const hash = document.getElementById('txHash').value.trim();
-    if (!hash) { showToast('❌ Enter transaction hash'); return; }
+    // تم إزالة التحقق الإلزامي من رمز العملية (TX)
+    let hash = document.getElementById('txHash') ? document.getElementById('txHash').value.trim() : '';
+    
     const user = currentUserData || JSON.parse(localStorage.getItem('tradelix_user') || '{}');
     if (!user.uid) { showToast('❌ Login first'); return; }
+    
+    // إذا لم يضع المستخدم كود العملية، نضع اسمه كمرجع
+    if (!hash) { 
+        hash = 'Submitted by: ' + (user.name || 'Unknown User'); 
+    }
     
     try {
         const hasSignalSub = user.plan && (user.plan.includes('VIP') || user.plan.includes('Weekly') || user.plan.includes('Monthly') || user.plan.includes('Quarterly') || user.plan.includes('15Days'));
